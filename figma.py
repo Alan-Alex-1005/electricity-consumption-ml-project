@@ -6,9 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import seaborn as sns
 
-# ------------------------------------
 # Load Dataset
-# ------------------------------------
 df = pd.read_csv("electricity_dataset_150.csv")
 
 st.set_page_config(
@@ -28,9 +26,7 @@ st.markdown("""
 
 st.title("⚡ Electricity Consumption & Billing Prediction Dashboard")
 
-# ------------------------------------
 # Train ML Model
-# ------------------------------------
 features = [
     "Number_of_Appliances",
     "AC_Usage_Hours",
@@ -49,9 +45,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# ------------------------------------
 # Sidebar (User Inputs)
-# ------------------------------------
 st.sidebar.header("🔧 Input Controls")
 
 appliances = st.sidebar.slider("Number of Appliances", 1, 20, 6)
@@ -66,9 +60,7 @@ predicted_kwh = model.predict(input_data)[0]
 predicted_inr = predicted_kwh * 9
 predicted_aed = predicted_inr * 0.044
 
-# ------------------------------------
 # Prediction Output
-# ------------------------------------
 st.subheader("📊 Prediction Output")
 
 col1, col2, col3 = st.columns(3)
@@ -79,24 +71,18 @@ col3.metric("Estimated Bill (AED)", f"AED {predicted_aed:.2f}")
 
 st.divider()
 
-# ------------------------------------
 # Dataset Viewer
-# ------------------------------------
 st.subheader("📁 Dataset Preview")
 st.dataframe(df.head(15))
 
-# ------------------------------------
 # Correlation Heatmap
-# ------------------------------------
 st.subheader("📌 Feature Correlation Heatmap")
 
 fig, ax = plt.subplots(figsize=(10, 5))
 sns.heatmap(df.corr(), annot=True, cmap="viridis", ax=ax)
 st.pyplot(fig)
 
-# ------------------------------------
 # Actual vs Predicted Chart
-# ------------------------------------
 st.subheader("📈 Actual vs Predicted (Test Data)")
 
 y_pred = model.predict(X_test)
@@ -109,9 +95,7 @@ ax2.set_ylabel("Consumption (kWh)")
 ax2.legend()
 st.pyplot(fig2)
 
-# ------------------------------------
 # Scatter Plot
-# ------------------------------------
 st.subheader("📉 Scatter Plot: Monthly Bill vs Consumption")
 
 fig3, ax3 = plt.subplots(figsize=(10, 5))
@@ -120,9 +104,7 @@ ax3.set_xlabel("Monthly Consumption (kWh)")
 ax3.set_ylabel("Monthly Bill (INR)")
 st.pyplot(fig3)
 
-# ------------------------------------
 # Footer
-# ------------------------------------
 st.markdown(
     "<h6 style='text-align:center; opacity:0.6;'>Created by Alan Chacolamannil Alex • Machine Learning Project</h6>",
     unsafe_allow_html=True
