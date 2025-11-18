@@ -9,9 +9,8 @@ st.set_page_config(page_title="Electricity Usage Dashboard", layout="wide")
 st.title("⚡ Electricity Usage Analytics Dashboard")
 st.write("Explore trends and patterns in electricity consumption and billing.")
 
-# =======================
 # Load Dataset
-# =======================
+
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
 if uploaded_file is not None:
@@ -53,9 +52,7 @@ if uploaded_file is not None:
     st.subheader("📌 Filtered Dataset")
     st.dataframe(filtered_df)
 
-    # =======================
     # Line Chart: Consumption vs Bill
-    # =======================
     st.subheader("📈 Monthly Consumption vs Bill")
 
     fig, ax = plt.subplots(figsize=(8,4))
@@ -66,18 +63,14 @@ if uploaded_file is not None:
     ax.legend()
     st.pyplot(fig)
 
-    # =======================
     # Heatmap
-    # =======================
     st.subheader("🔥 Correlation Heatmap")
 
     fig2, ax2 = plt.subplots(figsize=(10,6))
     sns.heatmap(df.corr(), annot=True, cmap="Blues", ax=ax2)
     st.pyplot(fig2)
 
-    # =======================
     # Relationship plot
-    # =======================
     st.subheader("📉 AC Usage vs Monthly Consumption")
 
     fig3, ax3 = plt.subplots(figsize=(8,4))
@@ -86,3 +79,4 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload your CSV file to generate the dashboard.")
+
